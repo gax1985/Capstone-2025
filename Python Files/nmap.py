@@ -1,5 +1,24 @@
     # Here is the nmap portion of our assignment : 
 
+def DaLoader():
+    """
+    Purpose: to add a nice loading screen after making each selection ( inner TODO list: Learn How to Make an Accurate Progress Bar : - ) ) 
+    """
+    
+    print("Please Wait! I appreciate your patience")
+    print("[*     ]")
+    time.sleep(1)
+    print("[**   ]")
+    time.sleep(1)
+    print("[***  ]")
+    time.sleep(1)
+    print("[**** ]")
+    time.sleep(1)
+    print("[*****]")
+
+# end def  
+
+
 #def nmap_scans():
     
     while nmap_choice != "q" or "Q":  
@@ -27,32 +46,14 @@
                 if nmap_choice == "1":
                     print("\n\nCertainly! Your Wish is My Command! One Comprehensive NMAP Vulnerability Scan coming right up!\n\n")
                     print("\n\n")
-                    print("Please Wait! I appreciate your patience")
-                    print("[*     ]")
-                    time.sleep(1)
-                    print("[**   ]")
-                    time.sleep(1)
-                    print("[***  ]")
-                    time.sleep(1)
-                    print("[**** ]")
-                    time.sleep(1)
-                    print("[*****]")
+                    DaLoader()
                     comprehensive_nmap_command = subprocess.run(["nmap","--script=vuln*","-O","-Pn",ip_address])
                     comprehensive_nmap_command_output = comprehensive_nmap_command.stdout
 
                 elif nmap_choice == "2":
                     print("\n\nCertainly! Your Wish is My Command! One NMAP Service-Version NSE Vulnerability Scan coming right up!\n\n")
                     print("\n\n")
-                    print("Please Wait! I appreciate your patience")
-                    print("[*     ]")
-                    time.sleep(1)
-                    print("[**   ]")
-                    time.sleep(1)
-                    print("[***  ]")
-                    time.sleep(1)
-                    print("[**** ]")
-                    time.sleep(1)
-                    print("[*****]")
+                    
                     service_version_nmap_command = subprocess.run(["nmap", "-sV","--script vuln", "-O","-Pn", ip_address])
                     service_version_nmap_command_output = service_version_nmap_command.stdout
 
@@ -60,16 +61,7 @@
 
                     print("\n\nCertainly! Your Wish is My Command! One Super-Stealthy NMAP Scan coming right up!\n\n")
                     print("\n\n")
-                    print("Please Wait! I appreciate your patience")
-                    print("[*     ]")
-                    time.sleep(1)
-                    print("[**   ]")
-                    time.sleep(1)
-                    print("[***  ]")
-                    time.sleep(1)
-                    print("[**** ]")
-                    time.sleep(1)
-                    print("[*****]")
+                    DaLoader()
                     stealthy_nmap_command = subprocess.run(["nmap", "-sS" "-T 1", "--max-rate 25","--max-retries 3", "-Pn", ip_address])
                     stealthy_nmap_scan_command_output = stealthy_nmap_command.stdout
                 if choice == "q" or choice == "Q":

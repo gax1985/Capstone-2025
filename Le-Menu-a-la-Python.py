@@ -21,8 +21,26 @@ choice = input("Please Enter your Selection ( please enter 1,2,3 or type the let
 
 ###################################### NMAP Function #################################
 
+# Ahem ... so , based on a very kind tip from our guru Carson, I have implemented the Loading portion of the menu to a function : 
+    
+def DaLoader():
+    """
+    Purpose: to add a nice loading screen after making each selection ( inner TODO list: Learn How to Make an Accurate Progress Bar : - ) ) 
+    """
+    
+    print("Please Wait! I appreciate your patience")
+    print("[*     ]")
+    time.sleep(1)
+    print("[**   ]")
+    time.sleep(1)
+    print("[***  ]")
+    time.sleep(1)
+    print("[**** ]")
+    time.sleep(1)
+    print("[*****]")
 
-
+# end def    
+    
 
 if choice == "1":
     print("**********************************************************************************************")
@@ -43,32 +61,17 @@ if choice == "1":
         if nmap_choice == "1":
             print("\n\nCertainly! Your Wish is My Command! One Comprehensive NMAP Vulnerability Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+
+            # Let us load the Loading Page : 
+            DaLoader()
+
             comprehensive_nmap_command = subprocess.run(["nmap","--script=vuln*","-O","-Pn",ip_address])
             comprehensive_nmap_command_output = comprehensive_nmap_command.stdout
 
         elif nmap_choice == "2":
             print("\n\nCertainly! Your Wish is My Command! One NMAP Service-Version NSE Vulnerability Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
             service_version_nmap_command = subprocess.run(["nmap", "-sV","--script vuln", "-O","-Pn", ip_address])
             service_version_nmap_command_output = service_version_nmap_command.stdout
 
@@ -76,16 +79,7 @@ if choice == "1":
 
             print("\n\nCertainly! Your Wish is My Command! One Super-Stealthy NMAP Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
             stealthy_nmap_command = subprocess.run(["nmap", "-sS" "-T 1", "--max-rate 25","--max-retries 3", "-Pn", ip_address])
             stealthy_nmap_scan_command_output = stealthy_nmap_command.stdout
         if choice == "q" or choice == "Q":
@@ -122,16 +116,7 @@ if choice == "2":
 
             print("\n\nCertainly! Your Wish is My Command! One Wapiti Cross-Site Scripting Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
 
             wapiti_cross_site_command = subprocess.run(
                 ["wapiti", "-u", "http://" + ip_address, "--scope","folder","-m","xss"])
@@ -141,16 +126,7 @@ if choice == "2":
 
             print("\n\nCertainly! Your Wish is My Command! One Wapiti SQL-Injection Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
 
             wapiti_sql_command = subprocess.run(
                 ["wapiti", "-u", "http://" + ip_address, "--scope","folder","-m","sql"])
@@ -289,7 +265,7 @@ if choice == "2":
                                # 2     Misconfiguration / Default File
                                # 3     Information Disclosure
                                # 4     Injection (XSS/Script/HTML)
-                               # 5     Remote File Retrieval - Inside Web Root
+                               # 5     Remote File Retrieval - Inside Web Root 
                                # 6     Denial of Service
                                # 7     Remote File Retrieval - Server Wide
                                # 8     Command Execution / Remote Shell
@@ -320,16 +296,7 @@ if choice == "3":
 
             print("\n\nCertainly! Your Wish is My Command! One ClamAV File Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
 
             file_location = str(input("Please enter the location of the file you wish to scan : \n\n"))
 
@@ -341,16 +308,7 @@ if choice == "3":
 
             print("\n\nCertainly! Your Wish is My Command! One ClamAV Folder Scan coming right up!\n\n")
             print("\n\n")
-            print("Please Wait! I appreciate your patience")
-            print("[*     ]")
-            time.sleep(1)
-            print("[**   ]")
-            time.sleep(1)
-            print("[***  ]")
-            time.sleep(1)
-            print("[**** ]")
-            time.sleep(1)
-            print("[*****]")
+            DaLoader()
 
             file_location = str(input("Please enter the location of the folder you wish to scan : \n\n"))
 
