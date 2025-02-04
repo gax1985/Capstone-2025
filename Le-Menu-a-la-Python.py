@@ -34,16 +34,12 @@ if choice == "1":
     print("3. NMAP Under-The-Radar Scan")
     print("\n\n")
     nmap_choice = input("Please enter your choice '(Please enter 1,2,3 or q to exit)' : ")
-
 # Now, let us implement the mechanism of conducting the actions mandated by the user's choice :
 
 
     while nmap_choice != "q" or "Q":
-
 # ... since all of the scans involving nmap require the IP Address of the host, let us obtain it for our uses :
-
         ip_address = socket.gethostbyname(socket.gethostname())
-
         if nmap_choice == "1":
             print("\n\nCertainly! Your Wish is My Command! One Comprehensive NMAP Vulnerability Scan coming right up!\n\n")
             print("\n\n")
@@ -116,7 +112,6 @@ if choice == "2":
     print("6. Nikto Super-Deluxe Scan")
     print("\n\n")
     web_application_choice = input("Please enter your choice '(Please enter 1,2,3,4,5,6 or q to exit)' : ")
-
 # ... Since this menu is all about Web Application Testing, let us grab the system's IP address :
 
     ip_address = socket.gethostbyname(socket.gethostname())
