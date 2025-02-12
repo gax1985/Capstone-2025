@@ -1,4 +1,7 @@
     # Here is the nmap portion of our assignment : 
+import subprocess
+import time
+import socket
 
 def DaLoader():
     """
@@ -19,11 +22,11 @@ def DaLoader():
 # end def  
 
 
-#def nmap_scans():
+def nmap_menu():
     
-    while nmap_choice != "q" or "Q":  
+    #while nmap_choice != "q" or "Q":
 
-        if choice == "1":
+        #if choice == "1":
             print("**********************************************************************************************")
             print("******************************** The Lovely NMAP Network Scans *******************************")
             print("**********************************************************************************************")
@@ -64,6 +67,7 @@ def DaLoader():
                     DaLoader()
                     stealthy_nmap_command = subprocess.run(["nmap", "-sS" "-T 1", "--max-rate 25","--max-retries 3", "-Pn", ip_address])
                     stealthy_nmap_scan_command_output = stealthy_nmap_command.stdout
+
                 if choice == "q" or choice == "Q":
                     exit()
 
