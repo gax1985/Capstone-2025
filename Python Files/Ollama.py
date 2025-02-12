@@ -48,7 +48,7 @@ def the_ollama_generator(): #nmap_report,nikto_report,clamav_report,wapiti_repor
 
 #   ... Now , we generate the response :
     try:
-        answer = generation_api.generate(prompt=prompt_text,options=dict(temperature=float(0.7)),system=system_instruction,format="json")
+        answer = generation_api.generate(prompt=prompt_text,options=dict(temperature=float(0.7)),system=system_instruction)#,format="json")
          #                               ,context=
          #                               ,total_duration=
          #                               ,load_duration=
