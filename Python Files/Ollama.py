@@ -38,6 +38,8 @@ def the_ollama_generator(): #(nmap_report,nikto_report,clamav_report,wapiti_repo
     
     from ollama_python import endpoints
     generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:11434/api")
+    #generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:12345/api")
+
 
 #   Let us add a variable and store the system prompt in it :
 
