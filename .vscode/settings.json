@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 {
     "python.testing.pytestArgs": [
         "Python Files"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
+=======
+{
+    "python.testing.pytestArgs": [
+        "Python Files"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+>>>>>>> f237876f37707e57aca99fe0d514b481d7393a80
 }

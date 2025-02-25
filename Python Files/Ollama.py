@@ -1,7 +1,6 @@
 #Let us start by importing the much needed Ollama-Python library :
-import ollama
+
 import ollama_python
-import beautifulsoup4
 from ollama_python.endpoints import ModelManagementAPI
 
 
@@ -38,8 +37,8 @@ def the_ollama_generator(): #(nmap_report, nikto_report, clamav_report, wapiti_r
 #   What we need to do here is to use the GenerateAPI library, where we indicate Ollama's API Endpoint, and we select our LLM :
     
     from ollama_python import endpoints
-    generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:11434/api")
-    #generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:12345/api")
+    #generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:11434/api")
+    generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:12345/api")
 
 
 
@@ -48,25 +47,15 @@ def the_ollama_generator(): #(nmap_report, nikto_report, clamav_report, wapiti_r
     nmap_report = """Starting Nmap 7.94SVN ( https://nmap.org/ ) at 2025-02-11 14:47 AST
 
 Nmap scan report for scanme.nmap.org (45.33.32.156)
-
 Host is up (0.085s latency).
-
 Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f
-
 Not shown: 991 closed tcp ports (reset)
-
 PORT      STATE    SERVICE
-
 22/tcp    open     ssh
-
 25/tcp    filtered smtp
-
 80/tcp    open     http
-
 135/tcp   filtered msrpc
-
 139/tcp   filtered netbios-ssn
-
 445/tcp   filtered microsoft-ds
 
 4444/tcp  filtered krb524
@@ -116,18 +105,13 @@ End Date:   2025:02:18 11:46:43"""
 + GET /icons/README: Apache default file found. See: https://www.vntweb.co.uk/apache-restricting-access-to-iconsreadme/: """
 
 
-    with open("wapiti_report.html", "r") as f:
-        extracted_report = beautifulsoup4(f,'html.parser')
-        extracted_report
-
-
-
     prompt_text = f""""We have ran a series of network, web-application and malware scans of the user's system. Please generate a clear, concise and user-friendly concise report
     indicating the vulnerabilities found, each vulnerability's rating (0-10 from 0 being harmless , to 10 being catastrophic). Afterwards, 
     please generate a detailed report explaining each vulnerability, its rating of severity,  the reason behind the rating of severity,
     how the user can resolve them, and add an advice for the future.  The audience (user) is a non-technical individual, and we would like the user to understand each vulnerability,
     understand its severity, guide the user step-by-step on the remediation of each vulnerability, and provide advice for the future. 
-    I will include the reports now : {nmap_report} , {wapiti_report} , {clamav_report} and {nikto_report}"""
+    I will include the reports now : {nmap_report}"""
+    # , {wapiti_report} , {clamav_report} and {nikto_report}"""
     ##Here is the report {nmap_report}"""
 
 
@@ -140,14 +124,14 @@ End Date:   2025:02:18 11:46:43"""
 
 #   ... Now , we generate the response :
     try:
-        answer = generation_api.generate(prompt=prompt_text,options=dict(temperature=float(0.3)),system=system_instruction)#,format="json")
+        answer = generation_api.generate(prompt=prompt_text,options=dict(temperature=float(0.3),num_ctx=4096),system=system_instruction)#,format="json")
          #                               ,context=
          #                               ,total_duration=
          #                               ,load_duration=
          #                               ,prompt_eval_duration=
          #                               ,eval_count=
          #                               ,eval_duration=
-         # )
+         # 
 
         prompt_response = answer.response
         return prompt_response

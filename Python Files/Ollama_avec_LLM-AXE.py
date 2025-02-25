@@ -1,12 +1,16 @@
 # Let us start by importing the much needed Ollama-Python library :
 import ollama_python
 import llm_axe
-import beautifulsoup4
+#import beautifulsoup4
+from ollama_python.endpoints import ModelManagementAPI
+
 from ollama_python.endpoints import ModelManagementAPI
 
 # We can declare the Ollama Model Management API's endpoint, so we can start with issuing commands to get the model :
 
-ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:11434/api")
+#ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:11434/api")
+ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:12345")
+
 
 
 # ... next, let us create a function to pull the desired model :
@@ -26,7 +30,7 @@ def ollama_model_gogetter(modelname):
 
 # Let us download a Cybersecurity-based LLM :
 
-# ollama_model_gogetter("ALIENTELLIGENCE/cybersecuritythreatanalysisv2")
+#ollama_model_gogetter("ALIENTELLIGENCE/cybersecuritythreatanalysisv2")
 
 
 #######################################################################################################################################
@@ -41,7 +45,9 @@ def the_ollama_generator():  # (nmap_report, nikto_report, clamav_report, wapiti
 
 
     from llm_axe import OllamaChat
-    llm = OllamaChat(host="http://127.0.0.1:11434/api",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2")
+    #llm = OllamaChat(host="http://127.0.0.1:11434/api",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # Windows
+    llm = OllamaChat(host="http://127.0.0.1:12345",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # NixOS
+
     # generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:12345/api")
 
     #   Since we get a prompt response successfully from the previous test prompt, let us store an example nmap report :
@@ -108,9 +114,11 @@ End Date:   2025:02:18 11:46:43"""
 + Target Host: scanme.nmap.org
 + Target Port: 80
 + GET /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options: 
-+ GET /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/: 
++ GET /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. 
+See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/: 
 + GET /index: Uncommon header 'tcn' found, with contents: list.
-+ GET /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,https://exchange.xforce.ibmcloud.com/vulnerabilities/8275: 
++ GET /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' 
+were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,https://exchange.xforce.ibmcloud.com/vulnerabilities/8275: 
 + HEAD Apache/2.4.7 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
 + OPTIONS OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS .
 + GET /images/: Directory indexing found.
@@ -125,7 +133,8 @@ End Date:   2025:02:18 11:46:43"""
     please generate a detailed report explaining each vulnerability, its rating of severity,  the reason behind the rating of severity,
     how the user can resolve them, and add an advice for the future.  The audience (user) is a non-technical individual, and we would like the user to understand each vulnerability,
     understand its severity, guide the user step-by-step on the remediation of each vulnerability, and provide advice for the future. 
-    I will include the reports now : {nmap_report} , {wapiti_report} , {clamav_report} and {nikto_report}"""
+    I will include the reports now : {nmap_report}"""
+    # , {wapiti_report} , {clamav_report} and {nikto_report}"""
     ##Here is the report {nmap_report}"""
 
     #   Let us add a variable and store the system prompt in it :
@@ -146,27 +155,41 @@ End Date:   2025:02:18 11:46:43"""
         #                               ,eval_count=
         #                               ,eval_duration=
         # )
-        prompts_of_LLM = []
-        prompts.append(prompt_text)
-        answer = OllamaChat.ask(llm,prompts=prompts_of_LLM,temperature=0.3,stream=True)
 
-        Try:
-            for character in answer:
-                print(character)
-        Except:
-                print("OOPs! Something is up with our brainy assistant!")
+        from llm_axe import Agent
+
+        
+
+        #prompts_of_LLM = []
+        #prompts_of_LLM.append(prompt_text)
+        #prompts_of_LLM.append(prompt_text+system_instruction)
+        #answer = OllamaChat.ask(llm,prompts=prompts_of_LLM,temperature=0.3,stream=True)
+        
+        agent = Agent(llm,custom_system_prompt=system_instruction,temperature=0.3,stream=True,
+        um_ctx=4096)
+
+        answer = agent.ask(prompt_text)
+        # try:
+        #     for chunk in answer:
+        #         print(chunk, end ="", flush=True)
+        # except Exception:
+        #         print("OOPs! Something is up with our brainy assistant!")
+
+        for chunk in answer:
+            print(chunk, end ="", flush=True)
+
 
         #prompt_response = answer.response
         
-        return prompt_response
+        return answer
 
 
     except Exception as e:
         print(f"Error In Response Generation : {e}")
 
 
-print(the_ollama_generator())
-
+#print(the_ollama_generator())
+the_ollama_generator()
 
 
 
