@@ -1,6 +1,8 @@
 # Let us start by importing the much needed Ollama-Python library :
 import ollama_python
 import llm_axe
+from bs4 import BeautifulSoup
+
 #import beautifulsoup4
 from ollama_python.endpoints import ModelManagementAPI
 
@@ -8,8 +10,8 @@ from ollama_python.endpoints import ModelManagementAPI
 
 # We can declare the Ollama Model Management API's endpoint, so we can start with issuing commands to get the model :
 
-#ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:11434/api")
-ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:12345")
+ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:11434/api")
+#ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:12345")
 
 
 
@@ -45,8 +47,9 @@ def the_ollama_generator():  # (nmap_report, nikto_report, clamav_report, wapiti
 
 
     from llm_axe import OllamaChat
-    #llm = OllamaChat(host="http://127.0.0.1:11434/api",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # Windows
-    llm = OllamaChat(host="http://127.0.0.1:12345",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # NixOS
+    #/api
+    llm = OllamaChat(host="http://127.0.0.1:11434",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # Windows
+    #llm = OllamaChat(host="http://127.0.0.1:12345",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # NixOS
 
     # generation_api = ollama_python.endpoints.GenerateAPI(model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2",base_url="http://127.0.0.1:12345/api")
 
@@ -124,6 +127,13 @@ were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,htt
 + GET /images/: Directory indexing found.
 + GET /icons/README: Apache default file found. See: https://www.vntweb.co.uk/apache-restricting-access-to-iconsreadme/: """
 
+    wapiti_report = open("wapiti_report.html","r").read()
+
+    decoded_wapiti_report = BeautifulSoup(wapiti_report,"html.parser")
+    decoded_wapiti_text   = decoded_wapiti_report.getText()
+    #print(decoded_wapiti_text)
+
+
     # with open("wapiti_report.html", "r") as f:
     #     extracted_report = beautifulsoup4(f, 'html.parser')
     #     extracted_report
@@ -133,8 +143,10 @@ were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,htt
     please generate a detailed report explaining each vulnerability, its rating of severity,  the reason behind the rating of severity,
     how the user can resolve them, and add an advice for the future.  The audience (user) is a non-technical individual, and we would like the user to understand each vulnerability,
     understand its severity, guide the user step-by-step on the remediation of each vulnerability, and provide advice for the future. 
-    I will include the reports now : {nmap_report}"""
-    # , {wapiti_report} , {clamav_report} and {nikto_report}"""
+    I will include the reports now : 
+    {decoded_wapiti_text}"""
+    #{nmap_report}
+    #{wapiti_report}""" , {clamav_report} and {nikto_report}"""
     ##Here is the report {nmap_report}"""
 
     #   Let us add a variable and store the system prompt in it :
@@ -165,7 +177,7 @@ were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,htt
         #prompts_of_LLM.append(prompt_text+system_instruction)
         #answer = OllamaChat.ask(llm,prompts=prompts_of_LLM,temperature=0.3,stream=True)
         
-        agent = Agent(llm,custom_system_prompt=system_instruction,temperature=0.3,stream=True,
+        agent = Agent(llm,custom_system_prompt=system_instruction,temperature=0.3,stream=False,
         um_ctx=4096)
 
         answer = agent.ask(prompt_text)
@@ -175,8 +187,8 @@ were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,htt
         # except Exception:
         #         print("OOPs! Something is up with our brainy assistant!")
 
-        for chunk in answer:
-            print(chunk, end ="", flush=True)
+        #for chunk in answer:
+        #    print(chunk, end ="", flush=True)
 
 
         #prompt_response = answer.response
@@ -188,8 +200,8 @@ were found: index.html. See: http://www.wisec.it/sectou.php?id=4698ebdc59d15,htt
         print(f"Error In Response Generation : {e}")
 
 
-#print(the_ollama_generator())
-the_ollama_generator()
+print(the_ollama_generator())
+#the_ollama_generator()
 
 
 
