@@ -314,8 +314,9 @@ def the_summarizer():
 
     from llm_axe import Agent,OllamaChat
 
-    llm = OllamaChat(host="http://127.0.0.1:11434",model="hf.co/Melvin56/DeepSeek-R1-Distill-Qwen-7B-abliterated-v2-GGUF:latest") # Windows
+    #llm = OllamaChat(host="http://127.0.0.1:11434",model="hf.co/Melvin56/DeepSeek-R1-Distill-Qwen-7B-abliterated-v2-GGUF:latest") # Windows
     #llm = OllamaChat(host="http://127.0.0.1:12345",model="hf.co/Melvin56/DeepSeek-R1-Distill-Qwen-7B-abliterated-v2-GGUF:latest") # NixOS
+    llm = OllamaChat(host="http://127.0.0.1:11434",model="ALIENTELLIGENCE/cybersecuritythreatanalysisv2") # Windows
 
 
     # Please the above in the documentary for the project with rationalization!
@@ -366,7 +367,7 @@ def the_summarizer():
 
     try:
 
-        agent = Agent(llm, custom_system_prompt=system_instruction_boxy, temperature=0.1, stream=False)
+        agent = Agent(llm, custom_system_prompt=system_instruction_boxy, temperature=0.3, stream=False)
         reports_summary = agent.ask(prompt=summarized_report_prompt)
 
         # Let us print the summarized report :
