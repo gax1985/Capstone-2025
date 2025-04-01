@@ -10,6 +10,8 @@ from ollama_python.endpoints import ModelManagementAPI
 # We can declare the Ollama Model Management API's endpoint, so we can start with issuing commands to get the model :
 
 ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:11434/api")
+
+
 #ModelManagerAPI = ollama_python.endpoints.ModelManagementAPI(base_url="http://localhost:12345")
 
 # ... next, let us take all the variables storing the different prompts we will need later, and keep them here in order for them to be globally available to all our functions :
